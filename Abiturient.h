@@ -35,6 +35,8 @@ public:
     void displayInfo() const;
 
     friend std::istream& operator>>(std::istream& in, Abiturient& obj);
+    friend std::ostream& operator<<(std::ostream& out, const Abiturient& obj);
+
 
 };
 

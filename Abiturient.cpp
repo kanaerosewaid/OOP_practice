@@ -57,5 +57,18 @@ void Abiturient::displayInfo() const {
     in >> obj.pinCode;
     return in;
 }
+std::ostream& operator<<(std::ostream& out, const Abiturient& obj) {
+    out << "ID: " << obj.id << "\n"
+        << "Прізвище: " << obj.lastName << "\n"
+        << "Ім'я: " << obj.firstName << "\n"
+        << "По батькові: " << obj.middleName << "\n"
+        << "Адреса: " << obj.address << "\n"
+        << "Телефон: " << obj.phone << "\n"
+        << "Рік здачі ЗНО: " << obj.yearOfZNO << "\n"
+        << "Номер сертифікату ЗНО: " << obj.znoCertificateNumber << "\n"
+        << "Пін-код: " << obj.pinCode << "\n";
+    return out;
+}
+
 
 }

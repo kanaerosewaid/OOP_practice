@@ -9,5 +9,8 @@ int main() {
     object2.displayInfo();
     object3.displayInfo();
 
+    std::cout << object1 << std::endl << object2 << std::endl << object3 << std::endl;
+
+
     return 0;
 }
