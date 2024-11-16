@@ -1,12 +1,43 @@
 #include <iostream>
-#include "Student.h"
+#include <vector>
+#include "BaseClass.h"
+#include "DerivedClass1.h"
+#include "DerivedClass2.h"
+#include "Menu.h"
 
 int main() {
-    Student student1(1, "Іванов", "Іван", "Іванович", "Київ, вул. Примерна 1", "0991234567", "Філологічний", 1, "ФІ-11");
-    Student student2(2, "Петров", "Петро", "Петрович", "Львів, вул. Тестова 3", "0977654321", "Інженерний", 2, "ІН-21");
+    const int SIZE = 5;
+    std::vector<BaseClass*> objects(SIZE);
 
-    student1.display();
-    student2.display();
+    // Заповнення масиву
+    for (int i = 0; i < SIZE; ++i) {
+        int choice = showMenu();
+        if (choice == 1) {
+            objects[i] = new DerivedClass1();
+        } else if (choice == 2) {
+            objects[i] = new DerivedClass2();
+        } else {
+            std::cout << "Invalid choice. Defaulting to DerivedClass1.\n";
+            objects[i] = new DerivedClass1();
+        }
+    }
+
+    // Виведення даних об'єктів
+    std::cout << "\nObject information:\n";
+    for (int i = 0; i < SIZE; ++i) {
+        objects[i]->display();
+    }
+
+    // Виклик віртуального методу
+    std::cout << "\nCalling virtual methods:\n";
+    for (int i = 0; i < SIZE; ++i) {
+        objects[i]->display();
+    }
+
+    // Видалення об'єктів
+    for (int i = 0; i < SIZE; ++i) {
+        delete objects[i];
+    }
 
     return 0;
 }
