@@ -1,42 +1,38 @@
 #include <iostream>
-#include <vector>
+#include "Vector.h"
 #include "BaseClass.h"
 #include "DerivedClass1.h"
 #include "DerivedClass2.h"
-#include "Menu.h"
 
 int main() {
-    const int SIZE = 5;
-    std::vector<BaseClass*> objects(SIZE);
+    // Перевірка роботи з вбудованими типами
+    Vector<int> intVector;
+    intVector.push_back(1);
+    intVector.push_back(2);
+    intVector.push_back(3);
 
-    // Заповнення масиву
-    for (int i = 0; i < SIZE; ++i) {
-        int choice = showMenu();
-        if (choice == 1) {
-            objects[i] = new DerivedClass1();
-        } else if (choice == 2) {
-            objects[i] = new DerivedClass2();
-        } else {
-            std::cout << "Invalid choice. Defaulting to DerivedClass1.\n";
-            objects[i] = new DerivedClass1();
-        }
+    std::cout << "intVector: ";
+    for (int i = 0; i < intVector.getSize(); ++i) {
+        std::cout << intVector[i] << " ";
     }
+    std::cout << "\n";
 
-    // Виведення даних об'єктів
-    std::cout << "\nObject information:\n";
-    for (int i = 0; i < SIZE; ++i) {
-        objects[i]->display();
-    }
+    // Перевірка роботи з базовим і похідними класами
+    Vector<BaseClass*> objectVector;
 
-    // Виклик віртуального методу
-    std::cout << "\nCalling virtual methods:\n";
-    for (int i = 0; i < SIZE; ++i) {
-        objects[i]->display();
-    }
+    DerivedClass1 obj1;
+    DerivedClass1 obj2;
+    DerivedClass2 obj3;
+    DerivedClass2 obj4;
 
-    // Видалення об'єктів
-    for (int i = 0; i < SIZE; ++i) {
-        delete objects[i];
+    objectVector.push_back(&obj1);
+    objectVector.push_back(&obj2);
+    objectVector.push_back(&obj3);
+    objectVector.push_back(&obj4);
+
+    std::cout << "Calling virtual method on each object:\n";
+    for (int i = 0; i < objectVector.getSize(); ++i) {
+        objectVector[i]->virtualMethod();
     }
 
     return 0;
