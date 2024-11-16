@@ -1,4 +1,3 @@
-// DerivedClass2.h
 #ifndef DERIVEDCLASS2_H
 #define DERIVEDCLASS2_H
 
@@ -6,8 +5,8 @@
 
 class DerivedClass2 : public BaseClass {
 public:
-    void display() const override {
-        std::cout << "This is DerivedClass2." << std::endl;
+    void virtualMethod() override {
+        std::cout << "DerivedClass2 method called.\n";
     }
 };
 

@@ -1,14 +1,12 @@
-// BaseClass.h
 #ifndef BASECLASS_H
 #define BASECLASS_H
 
 #include <iostream>
-#include <string>
 
 class BaseClass {
 public:
-    virtual void display() const = 0; // Суто віртуальний метод
-    virtual ~BaseClass() = default;  // Віртуальний деструктор
+    virtual ~BaseClass() {}
+    virtual void virtualMethod() = 0; // Суто віртуальний метод
 };
 
 #endif // BASECLASS_H

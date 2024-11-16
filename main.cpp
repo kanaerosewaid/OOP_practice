@@ -1,19 +1,21 @@
 #include <iostream>
-#include <vector>
+#include <list>
+#include <map>
 #include <algorithm>
-#include <iterator>
 #include <random>
 #include "BaseClass.h"
 #include "DerivedClass1.h"
 #include "DerivedClass2.h"
 
-void fillOddVector(std::vector<int>& vec) {
+// Функція для заповнення списку непарними числами
+void fillOddList(std::list<int>& lst) {
     for (int i = 0; i < 10; ++i) {
-        vec.push_back(1 + i * 4); // Непарні непослідовні числа
+        lst.push_back(1 + i * 4); // Непарні непослідовні числа
     }
 }
 
-void fillEvenVector(std::vector<int>& vec) {
+// Функція для заповнення списку парними числами
+void fillEvenList(std::list<int>& lst) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dist(10, 50);
@@ -23,19 +25,21 @@ void fillEvenVector(std::vector<int>& vec) {
         do {
             number = dist(gen);
         } while (number % 2 != 0); // Генеруємо лише парні
-        vec.push_back(number);
+        lst.push_back(number);
     }
 }
 
+// Функція для виведення елементів списку
 template <typename T>
-void printVector(const std::vector<T>& vec, const std::string& label) {
+void printList(const std::list<T>& lst, const std::string& label) {
     std::cout << label << ": ";
-    for (const auto& val : vec) {
+    for (const auto& val : lst) {
         std::cout << val << " ";
     }
     std::cout << "\n";
 }
 
+// Меню для вибору класу
 int showMenu() {
     int choice;
     std::cout << "Select class to create:\n";
@@ -47,71 +51,60 @@ int showMenu() {
 }
 
 int main() {
-    // Завдання 2: Заповнення векторів
-    std::vector<int> oddVec, evenVec;
-    fillOddVector(oddVec);
-    fillEvenVector(evenVec);
+    // Завдання 2: Створення та заповнення списків
+    std::list<int> oddList, evenList;
+    fillOddList(oddList);
+    fillEvenList(evenList);
 
-    // Сортування векторів
-    std::sort(oddVec.begin(), oddVec.end());
-    std::sort(evenVec.begin(), evenVec.end());
+    // Завдання 3: Об'єднання списків
+    oddList.sort();  // Сортуємо списки
+    evenList.sort();
+    std::list<int> mergedList;
+    std::merge(oddList.begin(), oddList.end(), evenList.begin(), evenList.end(), std::back_inserter(mergedList));
 
-    // Завдання 3: Об'єднання векторів
-    std::vector<int> mergedVec(oddVec.size() + evenVec.size());
-    std::merge(oddVec.begin(), oddVec.end(), evenVec.begin(), evenVec.end(), mergedVec.begin());
+    // Завдання 4: Виведення списків
+    printList(oddList, "Odd List");
+    printList(evenList, "Even List");
+    printList(mergedList, "Merged List");
 
-    // Виведення векторів
-    printVector(oddVec, "Odd Vector");
-    printVector(evenVec, "Even Vector");
-    printVector(mergedVec, "Merged Vector");
+    // Завдання 5: Заповнення контейнера std::map
+    std::map<int, BaseClass*> baseMap;
+    int id = 1;
 
-    // Завдання 4: Робота з похідними класами
-    std::vector<BaseClass*> baseVector;
-    for (int i = 0; i < 5; ++i) {
+    // Меню для додавання об'єктів у map
+    while (true) {
         int choice = showMenu();
         if (choice == 1) {
-            baseVector.push_back(new DerivedClass1());
+            baseMap[id++] = new DerivedClass1();
         } else if (choice == 2) {
-            baseVector.push_back(new DerivedClass2());
+            baseMap[id++] = new DerivedClass2();
+        } else {
+            break;
         }
     }
 
-    // Завдання 5: Робота з векторами похідних класів
-    std::vector<BaseClass*> vectorCopy = baseVector;
+    // Завдання 7: Виведення об'єктів з контейнера std::map за id
+    while (true) {
+        std::cout << "Enter ID to display object (or 0 to exit): ";
+        int searchId;
+        std::cin >> searchId;
 
-    // Видалення об'єктів першого підкласу з першого вектора
-    baseVector.erase(
-        std::remove_if(baseVector.begin(), baseVector.end(), [](BaseClass* obj) {
-            return dynamic_cast<DerivedClass1*>(obj) != nullptr;
-        }),
-        baseVector.end()
-    );
+        if (searchId == 0) {
+            break;
+        }
 
-    // Видалення об'єктів другого підкласу з другого вектора
-    vectorCopy.erase(
-        std::remove_if(vectorCopy.begin(), vectorCopy.end(), [](BaseClass* obj) {
-            return dynamic_cast<DerivedClass2*>(obj) != nullptr;
-        }),
-        vectorCopy.end()
-    );
-
-    // Виведення результатів
-    std::cout << "\nBase Vector after removing DerivedClass1 objects:\n";
-    for (const auto& obj : baseVector) {
-        obj->virtualMethod();
-    }
-
-    std::cout << "\nVector Copy after removing DerivedClass2 objects:\n";
-    for (const auto& obj : vectorCopy) {
-        obj->virtualMethod();
+        auto it = baseMap.find(searchId);
+        if (it != baseMap.end()) {
+            std::cout << "Displaying object with ID " << searchId << ": ";
+            it->second->virtualMethod();
+        } else {
+            std::cout << "Object with ID " << searchId << " not found.\n";
+        }
     }
 
     // Звільнення пам'яті
-    for (auto& obj : baseVector) {
-        delete obj;
-    }
-    for (auto& obj : vectorCopy) {
-        delete obj;
+    for (auto& pair : baseMap) {
+        delete pair.second;
     }
 
     return 0;
