@@ -1,16 +1,12 @@
 #include <iostream>
-#include "Abiturient.h"
+#include "Student.h"
 
 int main() {
-    Abiturient object1, object2, object3;
-    std::cin >> object1 >> object2 >> object3;
+    Student student1(1, "Іванов", "Іван", "Іванович", "Київ, вул. Примерна 1", "0991234567", "Філологічний", 1, "ФІ-11");
+    Student student2(2, "Петров", "Петро", "Петрович", "Львів, вул. Тестова 3", "0977654321", "Інженерний", 2, "ІН-21");
 
-    object1.displayInfo();
-    object2.displayInfo();
-    object3.displayInfo();
-
-    std::cout << object1 << std::endl << object2 << std::endl << object3 << std::endl;
-
+    student1.display();
+    student2.display();
 
     return 0;
 }
