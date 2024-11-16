@@ -1,0 +1,15 @@
+# Ignore build files
+/build/
+/bin/
+/obj/
+
+# Ignore Visual Studio Code files
+.vscode/
+
+# Ignore system files
+Thumbs.db
+.DS_Store
+
+# Ignore Git configuration files
+.env
+*.log
