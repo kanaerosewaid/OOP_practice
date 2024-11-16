@@ -33,6 +33,9 @@ public:
 
     // Методи для доступу до полів
     void displayInfo() const;
+
+    friend std::istream& operator>>(std::istream& in, Abiturient& obj);
+
 };
 
 #endif // ABITURIENT_H

@@ -34,4 +34,28 @@ void Abiturient::displayInfo() const {
               << "Рік здачі ЗНО: " << yearOfZNO << "\n"
               << "Номер сертифікату ЗНО: " << znoCertificateNumber << "\n"
               << "Пін-код: " << pinCode << "\n";
+
+              std::istream& operator>>(std::istream& in, Abiturient& obj) {
+    std::cout << "Введіть ID: ";
+    in >> obj.id;
+    std::cout << "Введіть прізвище: ";
+    in >> obj.lastName;
+    std::cout << "Введіть ім'я: ";
+    in >> obj.firstName;
+    std::cout << "Введіть по батькові: ";
+    in >> obj.middleName;
+    std::cout << "Введіть адресу: ";
+    in.ignore(); // Для коректного читання рядка
+    std::getline(in, obj.address);
+    std::cout << "Введіть телефон: ";
+    in >> obj.phone;
+    std::cout << "Введіть рік здачі ЗНО: ";
+    in >> obj.yearOfZNO;
+    std::cout << "Введіть номер сертифікату ЗНО: ";
+    in >> obj.znoCertificateNumber;
+    std::cout << "Введіть пін-код сертифікату: ";
+    in >> obj.pinCode;
+    return in;
+}
+
 }
