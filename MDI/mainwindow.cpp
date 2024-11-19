@@ -2,7 +2,11 @@
 #include "ui_mainwindow.h"
 #include "domivkadialog.h"
 #include "hoteldialog.h"
+<<<<<<< HEAD
 // #include "sqlitedbmanager.h" // Закоментовано
+=======
+#include "sqlitedbmanager.h"
+>>>>>>> PR11
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -15,7 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
     setupDomivkaTable();
     setupHotelTable();
 
+<<<<<<< HEAD
     // loadData(); // Закоментовано
+=======
+    loadData();
+>>>>>>> PR11
 }
 
 MainWindow::~MainWindow() {
@@ -39,6 +47,7 @@ void MainWindow::on_pushButton_createHotel_clicked() {
 }
 
 void MainWindow::onDomivkaCreated(Domivka* domivka) {
+<<<<<<< HEAD
     // if (SqliteDBManager::instance().addDomivka(*domivka)) { // Закоментовано
     QList<QStandardItem*> row;
     row << new QStandardItem(domivka->getName())
@@ -56,6 +65,25 @@ void MainWindow::onHotelCreated(Hotel* hotel) {
         << new QStandardItem(QString::number(hotel->getRooms()));
     hotelModel->appendRow(row);
     // } // Закоментовано
+=======
+    if (SqliteDBManager::instance().addDomivka(*domivka)) {
+        QList<QStandardItem*> row;
+        row << new QStandardItem(domivka->getName())
+            << new QStandardItem(QString::number(domivka->getPrice()))
+            << new QStandardItem(QString::number(domivka->getGuests()));
+        domivkaModel->appendRow(row);
+    }
+}
+
+void MainWindow::onHotelCreated(Hotel* hotel) {
+    if (SqliteDBManager::instance().addHotel(*hotel)) {
+        QList<QStandardItem*> row;
+        row << new QStandardItem(hotel->getName())
+            << new QStandardItem(QString::number(hotel->getPrice()))
+            << new QStandardItem(QString::number(hotel->getRooms()));
+        hotelModel->appendRow(row);
+    }
+>>>>>>> PR11
 }
 
 void MainWindow::setupDomivkaTable() {
@@ -69,7 +97,10 @@ void MainWindow::setupHotelTable() {
 }
 
 void MainWindow::loadData() {
+<<<<<<< HEAD
     /*
+=======
+>>>>>>> PR11
     auto domivkas = SqliteDBManager::instance().loadDomivkaData();
     for (Domivka* domivka : domivkas) {
         QList<QStandardItem*> row;
@@ -87,12 +118,18 @@ void MainWindow::loadData() {
             << new QStandardItem(QString::number(hotel->getRooms()));
         hotelModel->appendRow(row);
     }
+<<<<<<< HEAD
     */
+=======
+>>>>>>> PR11
 }
 
 void MainWindow::on_pushButton_clicked()
 {
+<<<<<<< HEAD
     /*
+=======
+>>>>>>> PR11
     QSqlQuery query;
 
     if (query.exec("DELETE FROM Domivka")) {
@@ -107,5 +144,10 @@ void MainWindow::on_pushButton_clicked()
     } else {
         QMessageBox::warning(this, "Помилка", "Не вдалося очистити таблицю apartments: " + query.lastError().text());
     }
+<<<<<<< HEAD
     */
 }
+=======
+}
+
+>>>>>>> PR11

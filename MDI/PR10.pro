@@ -16,6 +16,10 @@ SOURCES += \
     hoteldialog.cpp \
     main.cpp \
     mainwindow.cpp \
+<<<<<<< HEAD
+=======
+    sqlitedbmanager.cpp
+>>>>>>> PR11
 
 HEADERS += \
     domivka.h \
@@ -23,6 +27,10 @@ HEADERS += \
     hotel.h \
     hoteldialog.h \
     mainwindow.h \
+<<<<<<< HEAD
+=======
+    sqlitedbmanager.h
+>>>>>>> PR11
 
 FORMS += \
     domivkadialog.ui \
